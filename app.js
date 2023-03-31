@@ -1,4 +1,4 @@
-const wasteList = document.querySelector('#cafe-list');
+const wasteList = document.querySelector('#waste-list');
 
 // create element & render cafe
 function renderWaste(doc){
@@ -21,4 +21,18 @@ db.collection('waste').get().then(snapshot => {
     snapshot.docs.forEach(doc => {
         renderWaste(doc);
     });
+});
+
+
+
+const form = document.querySelector('#add-waste-form');
+// saving data
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    db.collection('waste').add({
+        type: form.type.value,
+        location: form.location.value
+    });
+    form.type.value = '';
+    form.location.value = '';
 });
